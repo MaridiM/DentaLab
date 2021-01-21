@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
 
 import { Button, Input, Textarea } from 'components'
 import { routes } from 'routes'
 
 const { login } = routes
 
-const HelpForm = ({onChange, onSubmit}) => {
-    const { t } = useTranslation('auth')
-    const { title, buttons } = t('help', { returnObjects: true })
-    const { inputs } = t('base', { returnObjects: true })
+const HelpForm = ({onChange, onSubmit, useTranslate}) => {
+    const { translation: {
+        help: { title, buttons },
+        base: { inputs }
+    }} = useTranslate('auth', [['help', true], ['base', true]])
 
 
     return (
@@ -32,10 +32,15 @@ const HelpForm = ({onChange, onSubmit}) => {
 }
 
 HelpForm.propTypes = {
-    title: PropTypes.string
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    useTranslate: PropTypes.func,
+
 }
 HelpForm.defaultProps = {
-    title: ''
+    onChange: () => {},
+    onSubmit: () => {},
+    useTranslate: () => {},
 }
 
 export default HelpForm

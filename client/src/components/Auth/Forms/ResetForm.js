@@ -1,16 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
 
 import { Button, Input } from 'components'
 import { routes } from 'routes'
 
 const { login } = routes
 
-const ResetForm = ({onChange, onSubmit}) => {
-    const { t } = useTranslation('auth')
-    const { title, buttons } = t('reset', { returnObjects: true })
-    const { inputs } = t('base', { returnObjects: true })
+const ResetForm = ({onChange, onSubmit, useTranslate}) => {
+    const { translation: {
+        reset: { title, buttons },
+        base: { inputs }
+    }} = useTranslate('auth', [['reset', true], ['base', true]])
+
+
 
     return (
         <form className='password-form'  method="POST">
@@ -31,10 +33,15 @@ const ResetForm = ({onChange, onSubmit}) => {
 }
 
 ResetForm.propTypes = {
-    title: PropTypes.string
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    useTranslate: PropTypes.func,
+
 }
 ResetForm.defaultProps = {
-    title: ''
+    onChange: () => {},
+    onSubmit: () => {},
+    useTranslate: () => {},
 }
 
 export default ResetForm

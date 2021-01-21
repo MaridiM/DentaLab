@@ -1,17 +1,17 @@
 import React from 'react'
-import { useTranslation } from "react-i18next"
+import PropTypes from 'prop-types'
 
 import { Button, Input } from 'components'
 import { routes } from 'routes'
 
 const { login } = routes
 
-const ForgotForm = ({ onChange, onSubmit }) => {
-    const { t } = useTranslation('auth') // Get  translete from  json on utils
-    const {
-        title, info, buttons: { back, submit}
-    } = t("forgot", { returnObjects: true })
-    const { inputs } = t('base', { returnObjects: true })
+const ForgotForm = ({ onChange, onSubmit, useTranslate }) => {
+    const { translation: {
+        forgot: { title, info, buttons: { back, submit} },
+        base: { inputs }
+    }} = useTranslate('auth', [['forgot', true], ['base', true]])
+
     
     return (
         
@@ -28,6 +28,18 @@ const ForgotForm = ({ onChange, onSubmit }) => {
 
         </form>
     )
+}
+
+ForgotForm.propTypes = {
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    useTranslate: PropTypes.func,
+
+}
+ForgotForm.defaultProps = {
+    onChange: () => {},
+    onSubmit: () => {},
+    useTranslate: () => {},
 }
 
 export default ForgotForm

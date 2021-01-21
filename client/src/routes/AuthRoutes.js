@@ -1,6 +1,5 @@
 import React from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 
 import { AuthFormModule } from 'modules'
@@ -22,16 +21,20 @@ const {
     help
 } = routes
 
-const AuthRoutes = ({changeLanguage, location}) => {
+const AuthRoutes = ({changeLanguage, useTranslate, location}) => {
+    const { translation: {
+        base: { authBtn }
+    }} = useTranslate('auth', [['patient', true], ['base', true]])
+    
     const { pathname } = location
-    const { t } = useTranslation('auth')
-    const { authBtn } = t('base', { returnObjects: true })
+    
     return (
          <Switch>
             <Route exact path={[main, login]}>
                 <AuthFormModule 
                     component={LoginForm} 
                     changeLanguage={changeLanguage} 
+                    useTranslate={useTranslate}
                     footer/>
             </Route>
 
@@ -39,6 +42,7 @@ const AuthRoutes = ({changeLanguage, location}) => {
                 <AuthFormModule 
                     component={TypeAccount} 
                     changeLanguage={changeLanguage}
+                    useTranslate={useTranslate}
                     type='change-account'
                     btnText={authBtn}
                     footer/>
@@ -48,6 +52,7 @@ const AuthRoutes = ({changeLanguage, location}) => {
                 <AuthFormModule 
                     component={RegisterPatientForm} 
                     changeLanguage={changeLanguage}
+                    useTranslate={useTranslate}
                     type='register-patient'
                     btnText={authBtn}
                     footer/>
@@ -57,6 +62,7 @@ const AuthRoutes = ({changeLanguage, location}) => {
                 <AuthFormModule 
                     component={RegisterDentistForm} 
                     changeLanguage={changeLanguage}
+                    useTranslate={useTranslate}
                     type='register'
                     btnText={authBtn}
                     maxStep={2}
@@ -67,6 +73,7 @@ const AuthRoutes = ({changeLanguage, location}) => {
                 <AuthFormModule 
                     component={pathname === forgot ? ForgotForm : ResetForm}
                     changeLanguage={changeLanguage} 
+                    useTranslate={useTranslate}
                     title={pathname === forgot ? 'Forgot password' : 'Reset password'} 
                     footer />
             </Route>
@@ -74,16 +81,19 @@ const AuthRoutes = ({changeLanguage, location}) => {
             <Route exact path={help}>
                 <AuthFormModule 
                     component={HelpForm} 
-                    changeLanguage={changeLanguage} />
+                    changeLanguage={changeLanguage}
+                    useTranslate={useTranslate} />
             </Route>
         </Switch>
     )
 }
 
 AuthRoutes.propTypes = {
-    changeAccount: PropTypes.func
+    changeAccount: PropTypes.func,
+    useTranslate: PropTypes.func,
 }
 AuthRoutes.defaultProps = {
     changeAccount: () => {},
+    useTranslate: () => {},
 }
 export default withRouter(AuthRoutes)

@@ -21,11 +21,10 @@ const AuthFormModule = ({
     btnText, 
     footer, 
     maxStep, 
-    changeLanguage 
+    changeLanguage,
+    useTranslate,
 }) => {
     
-
-
     const { onChange, onSubmit } = useForm()
     const { pathname } = document.location
 
@@ -45,6 +44,7 @@ const AuthFormModule = ({
                 maxStep={maxStep}
                 onChange={onChange}
                 onSubmit={onSubmit}
+                useTranslate={useTranslate}
                 />
             { footer && <Footer type={type} btnText={btnText} changeLanguage={changeLanguage} /> }
         </section> 
@@ -59,6 +59,7 @@ AuthFormModule.propTypes = {
     maxStep: PropTypes.number, 
     footer: PropTypes.bool,
     changeLanguage: PropTypes.func,
+    useTranslate: PropTypes.func,
 }
 AuthFormModule.defaultProps = {
     title: '', 
@@ -66,6 +67,7 @@ AuthFormModule.defaultProps = {
     footer: false,
     maxStep: 2, 
     changeLanguage: () => {},
+    useTranslate: () => {},
 }
 
 export default AuthFormModule

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslation } from "react-i18next"
+import PropTypes from 'prop-types'
 
 import { Input, Button, Select } from 'components'
 import { routes } from 'routes'
@@ -7,10 +7,12 @@ import { FacebookSVG, GoogleSVG } from 'icons'
 
 const { password: {forgot}, register: {changeAccount} } = routes
 
-const LoginForm = ({onChange, onSubmit}) => {
-    const { t } = useTranslation('auth')
-    const { title, selectList, buttons, links } = t('login', { returnObjects: true })
-    const { inputs } = t('base', { returnObjects: true })
+const LoginForm = ({onChange, onSubmit, useTranslate}) => {
+    const { translation: {
+        login: { title, selectList, buttons, links },
+        base: { inputs }
+    }} = useTranslate('auth', [['login', true], ['base', true]])
+    
 
     return (
         <form className='login-form'  method="POST">
@@ -61,5 +63,16 @@ const LoginForm = ({onChange, onSubmit}) => {
     )
 }
 
+LoginForm.propTypes = {
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    useTranslate: PropTypes.func,
+
+}
+LoginForm.defaultProps = {
+    onChange: () => {},
+    onSubmit: () => {},
+    useTranslate: () => {},
+}
 
 export default LoginForm

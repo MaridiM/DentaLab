@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useTranslation } from 'react-i18next'
 
 import { Input, Button} from 'components'
 
-const RegisterPatientForm = ({onChange, onSubmit}) => {
-    const { t } = useTranslation('auth')
-    const { title, buttons } = t('patient', { returnObjects: true })
-    const { inputs } = t('base', { returnObjects: true })
+const RegisterPatientForm = ({onChange, onSubmit, useTranslate}) => {
+    const { translation: {
+        patient: { title, buttons },
+        base: { inputs }
+    }} = useTranslate('auth', [['patient', true], ['base', true]])
 
     return (
         <form className='register-form' method="POST">
@@ -26,9 +26,15 @@ const RegisterPatientForm = ({onChange, onSubmit}) => {
     )
 }
 RegisterPatientForm.propTypes = {
-    title: PropTypes.string
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    useTranslate: PropTypes.func,
+
 }
 RegisterPatientForm.defaultProps = {
-    title: ''
+    onChange: () => {},
+    onSubmit: () => {},
+    useTranslate: () => {},
 }
+
 export default RegisterPatientForm

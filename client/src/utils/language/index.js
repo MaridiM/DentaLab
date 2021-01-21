@@ -1,1 +1,1 @@
-export { default as translations } from './locales'
+export { translations } from './locales'

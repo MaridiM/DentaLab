@@ -25,7 +25,7 @@ const AuthFormModule = ({
     useTranslate,
 }) => {
     
-    const { onChange, onSubmit } = useForm()
+    const { onChange, onSubmit, onBlur, validate } = useForm()
     const { pathname } = document.location
 
     const classes = classnames(
@@ -44,6 +44,8 @@ const AuthFormModule = ({
                 maxStep={maxStep}
                 onChange={onChange}
                 onSubmit={onSubmit}
+                onBlur={onBlur}
+                validate={validate}
                 useTranslate={useTranslate}
                 />
             { footer && <Footer type={type} btnText={btnText} changeLanguage={changeLanguage} /> }

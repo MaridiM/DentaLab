@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { WarningSVG, SuccessSVG } from 'icons'
 
-const Input = ({id, className, label, error, autoComplete, noStyle, ...attrs}) => {  
-
+const Input = ({id, className, label, validate, autoComplete, noStyle, ...attrs}) => {  
+    // console.log(validate)
     const classes = classnames(
         !noStyle && 'input-field',
         className, 
-        error.status === 'success' && 'input-field-success',
-        error.status === 'error' && 'input-field-error',
+        validate && !!validate[id] 
+            ? validate[id].status 
+                ? 'input-field-success'
+                :  !validate[id].status && 'input-field-error'
+            : null
     )
     return (
         <div className='input'>
@@ -23,14 +26,14 @@ const Input = ({id, className, label, error, autoComplete, noStyle, ...attrs}) =
                     {...attrs}
                     />
                 { 
-                    error.status 
-                        ?   error.status  ===  'error' 
-                                ? <span className='input-icon'>
-                                    <WarningSVG className="input-icon-error" />
-                                </span> 
-                                : <span className='input-icon'>
-                                    <SuccessSVG className="input-icon-success" />
-                                </span> 
+                    validate && !!validate[id]
+                        ?   !validate[id].status 
+                            ? <span className='input-icon'>
+                                <WarningSVG className="input-icon-error" />
+                            </span> 
+                            : validate[id].status && <span className='input-icon'>
+                                <SuccessSVG className="input-icon-success" />
+                            </span> 
                         : null
                     }
             </div>

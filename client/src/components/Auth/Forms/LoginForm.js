@@ -7,13 +7,12 @@ import { FacebookSVG, GoogleSVG } from 'icons'
 
 const { password: {forgot}, register: {changeAccount} } = routes
 
-const LoginForm = ({onChange, onSubmit, useTranslate}) => {
+const LoginForm = ({onChange, onSubmit, useTranslate, onBlur, validate}) => {
     const { translation: {
         login: { title, selectList, buttons, links },
         base: { inputs }
     }} = useTranslate('auth', [['login', true], ['base', true]])
     
-
     return (
         <form className='login-form'  method="POST">
             <h2 className='auth-modal-title'>{ title }</h2>
@@ -22,12 +21,16 @@ const LoginForm = ({onChange, onSubmit, useTranslate}) => {
                 type='email' 
                 id='email' 
                 onChange={onChange}
+                onBlur={onBlur}
+                validate={validate}
                 placeholder={ inputs.email } />
             <Input 
                 type='password' 
                 id='password' 
                 autoComplete='off' 
                 onChange={onChange}
+                onBlur={onBlur}
+                validate={validate}
                 placeholder={ inputs.password } />
 
             <div className='input-group'>

@@ -13,7 +13,7 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
         base: { inputs }
     }} = useTranslate('auth', [['dentist', true], ['base', true]])
     
-    const { onChange, onSubmit, form } = useForm({
+    const { onChange, onSubmit, onBlur, form, validate } = useForm({
         role: 'dentist', //Dentist role
         changeExperience: experience.years[0][1],
         city: '',
@@ -27,9 +27,7 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
         phone: '',
         state: '',
     })
-
-
-    
+    console.log(validate)
 
     return (
         <form className='register-form'  method="POST">
@@ -38,16 +36,61 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
             <Step step={step} maxStep={maxStep} stepText={steps} />    
             { step === 1 && 
                 <div className='input-group'>
-                    <Input type='text' id='fullname' placeholder={inputs.fullname } onChange={onChange} value={form.fullname} />
-                    <Input type='email' id='email' placeholder={ inputs.email } onChange={onChange} value={form.email} />
-                    <Input type='phone' id='phone' placeholder={ inputs.phone } onChange={onChange} value={form.phone} />
-                    <Input type='password' id='password' autoComplete='off' placeholder={ inputs.password } onChange={onChange} value={form.password} />
-                    <Input type='password' id='confirm' autoComplete='off' placeholder={ inputs.confirm } onChange={onChange} value={form.confirm} />
+                    <Input 
+                        type='text' 
+                        id='fullname' 
+                        placeholder={inputs.fullname } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.fullname} />
+                    <Input 
+                        type='email' 
+                        id='email' 
+                        placeholder={ inputs.email } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.email} />
+                    <Input 
+                        type='tel' 
+                        id='phone' 
+                        placeholder={ inputs.phone } 
+                        pattern="+[0-9]{1,2}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.phone} />
+                    <Input 
+                        type='password' 
+                        id='password' 
+                        autoComplete='off' 
+                        placeholder={ inputs.password } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.password} />
+                    <Input 
+                        type='password' 
+                        id='confirm' 
+                        autoComplete='off' 
+                        placeholder={ inputs.confirm } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.confirm} />
                 </div>
             }
             { step === 2 && 
                 <div className='input-group'>
-                    <Input type='text' id='clinicName' placeholder={ inputs.clinicName } onChange={onChange} value={form.clinicName} />
+                    <Input 
+                        type='text' 
+                        id='clinicName' 
+                        placeholder={ inputs.clinicName } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.clinicName} />
                     <Select 
                         label={experience.label}
                         id='changeExperience' 
@@ -56,10 +99,38 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
                         onChange={onChange} 
                         noStyle
                         />
-                    <Input type='text' id='country' placeholder={ inputs.country } onChange={onChange} value={form.country} />
-                    <Input type='text' id='state' placeholder={ inputs.state} onChange={onChange} value={form.state} />
-                    <Input type='text' id='city' placeholder={ inputs.city } onChange={onChange} value={form.city} />
-                    <Input type='text' id='clinicAddress' placeholder={ inputs.clinicAddress } onChange={onChange} value={form.clinicAddress} />
+                    <Input 
+                        type='text' 
+                        id='country' 
+                        placeholder={ inputs.country } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.country} />
+                    <Input 
+                        type='text' 
+                        id='state' 
+                        placeholder={ inputs.state} 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.state} />
+                    <Input 
+                        type='text' 
+                        id='city' 
+                        placeholder={ inputs.city } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.city} />
+                    <Input 
+                        type='text' 
+                        id='clinicAddress' 
+                        placeholder={ inputs.clinicAddress } 
+                        onChange={onChange} 
+                        onBlur={onBlur} 
+                        validate={validate}
+                        value={form.clinicAddress} />
                 </div>
             }
                 
@@ -72,7 +143,10 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
                 }
                 { step === 2 && 
                     <div className="btn-group">
-                        <Button to={step_1} className='btn-group__login'>{ buttons.cancel }</Button>
+                        <Button 
+                            to={step_1} 
+                            className='btn-group__login'
+                            >{ buttons.cancel }</Button>
                         <Button
                             type='submit'
                             onClick={onSubmit}

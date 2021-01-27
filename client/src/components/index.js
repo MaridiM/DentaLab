@@ -4,6 +4,7 @@ export {
     Textarea,
     Select,
     Img,
+    InputSpinner,
 }
 from './BaseComponents'
 

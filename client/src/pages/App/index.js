@@ -5,7 +5,8 @@ import { AppRoutes } from 'routes'
 
 const App = () => {
     const [ lng, setLng ] = useState('en')
-    const {i18n } = useTranslation();
+    const { i18n } = useTranslation();
+    
     useEffect(() => {
         i18n.changeLanguage(lng)
     },[i18n, lng])

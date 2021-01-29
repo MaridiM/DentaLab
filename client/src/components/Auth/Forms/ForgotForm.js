@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 
 import { Button, Input } from 'components'
 import { routes } from 'routes'
+import { useForm } from 'hooks'
 
 const { login } = routes
 
-const ForgotForm = ({ onChange, onSubmit, useTranslate }) => {
+const ForgotForm = ({ useTranslate }) => {
     const { translation: {
         forgot: { title, info, buttons: { back, submit} },
         base: { inputs }
     }} = useTranslate('auth', [['forgot', true], ['base', true]])
 
+    const { onChange, onSubmit, onBlur, validate } = useForm({})
     
     return (
         
@@ -19,7 +21,13 @@ const ForgotForm = ({ onChange, onSubmit, useTranslate }) => {
             <h2 className='auth-modal-title'>{ title }</h2>
             <p className='password-info'>{ info }</p>
             
-            <Input type='email' id='email' placeholder={ inputs.email } onChange={onChange} />
+            <Input 
+                type='email' 
+                id='email' 
+                placeholder={ inputs.email } 
+                validate={ validate }
+                onBlur={ onBlur }
+                onChange={ onChange } />
 
             <div className='btn-group'>
                 <Button to={login} className='link-btn'>{ back }</Button>
@@ -31,14 +39,10 @@ const ForgotForm = ({ onChange, onSubmit, useTranslate }) => {
 }
 
 ForgotForm.propTypes = {
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
     useTranslate: PropTypes.func,
 
 }
 ForgotForm.defaultProps = {
-    onChange: () => {},
-    onSubmit: () => {},
     useTranslate: () => {},
 }
 

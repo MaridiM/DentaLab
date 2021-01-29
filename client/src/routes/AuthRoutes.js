@@ -68,7 +68,7 @@ const AuthRoutes = ({changeLanguage, useTranslate, location}) => {
                     maxStep={2}
                     footer={Number(pathname.split('-')[1]) === 1 ? true : false} />
             </Route>
-
+            
             <Route exact path={[forgot, reset]}>
                 <AuthFormModule 
                     component={pathname === forgot ? ForgotForm : ResetForm}

@@ -22,7 +22,7 @@ const {
 const AuthRoutes = ({changeLanguage}) => {
     return (
         <Switch>
-            <Route exact path={[main, login, changeAccount, patient, step_1, step_2, forgot, reset, help]}>
+            <Route exact path={[ main, login, changeAccount, patient, step_1, step_2, forgot, reset, help ]}>
                 <Auth changeLanguage={changeLanguage} />
             </Route>
         </Switch>

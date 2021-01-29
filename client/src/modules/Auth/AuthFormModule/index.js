@@ -4,7 +4,6 @@ import classnames from 'classnames'
 
 import { routes } from 'routes'
 import { Footer } from 'components'
-import { useForm } from 'hooks'
 
 const {
     main,
@@ -25,7 +24,6 @@ const AuthFormModule = ({
     useTranslate,
 }) => {
     
-    const { onChange, onSubmit, onBlur, validate } = useForm()
     const { pathname } = document.location
 
     const classes = classnames(
@@ -42,10 +40,6 @@ const AuthFormModule = ({
                 title={title} 
                 step={Number(pathname.split('-')[1])}
                 maxStep={maxStep}
-                onChange={onChange}
-                onSubmit={onSubmit}
-                onBlur={onBlur}
-                validate={validate}
                 useTranslate={useTranslate}
                 />
             { footer && <Footer type={type} btnText={btnText} changeLanguage={changeLanguage} /> }

@@ -4,15 +4,18 @@ import PropTypes from 'prop-types'
 import { Input, Button, Select } from 'components'
 import { routes } from 'routes'
 import { FacebookSVG, GoogleSVG } from 'icons'
+import { useForm } from 'hooks'
 
 const { password: {forgot}, register: {changeAccount} } = routes
 
-const LoginForm = ({onChange, onSubmit, useTranslate, onBlur, validate}) => {
+const LoginForm = ({ useTranslate }) => {
     const { translation: {
         login: { title, selectList, buttons, links },
         base: { inputs }
     }} = useTranslate('auth', [['login', true], ['base', true]])
-    
+
+    const { onChange, onSubmit, onBlur, validate } = useForm({})
+
     return (
         <form className='login-form'  method="POST">
             <h2 className='auth-modal-title'>{ title }</h2>
@@ -67,14 +70,9 @@ const LoginForm = ({onChange, onSubmit, useTranslate, onBlur, validate}) => {
 }
 
 LoginForm.propTypes = {
-    onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
     useTranslate: PropTypes.func,
-
 }
 LoginForm.defaultProps = {
-    onChange: () => {},
-    onSubmit: () => {},
     useTranslate: () => {},
 }
 

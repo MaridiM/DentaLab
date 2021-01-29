@@ -1,7 +1,15 @@
 import { useState } from 'react'
 
+import { useTranslate } from 'hooks'
+ 
 export const useValidation = () => {
     const [ validate, setValidate ] = useState({})
+    const { translation: { empty, password, phone, email }} = useTranslate('errors', [
+        ['empty', true], ['password', true], ['phone', true], ['email', true]
+    ])
+    const { translation } = useTranslate('errors')
+
+
     const REGEX_MAIL = /^[\w-'.]+@([\w-]+\.)+[\w-]{2,4}$/
     const REGEX_PHONE = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/
 
@@ -25,27 +33,27 @@ export const useValidation = () => {
 
         if(inputValue === '') {
             // Empty field
-            statusInput(false, 'Field can not be empty')
+            statusInput(false, empty.field)
         } else {
             // Not Empty
             statusInput(true)
             
             // Validate Email
             inputName === 'email' && 
-                validateInput(REGEX_MAIL.test(String(inputValue)),'Invalid email')
+                validateInput(REGEX_MAIL.test(String(inputValue)), email.format)
             // Validate Phone
             inputName === 'phone' && 
-             validateInput(REGEX_PHONE.test(String(inputValue)),'Invalid phone')
+             validateInput(REGEX_PHONE.test(String(inputValue)), phone.format)
             // Validate Password
             inputName === 'password' && 
-                validateInput((inputValue.length > 6 && inputValue.length < 32), 'Password must be have at 6 - 32 characters' )
+                validateInput((inputValue.length > 6 && inputValue.length < 32), password.length )
             // Validate Confirm password to Equal
             inputName === 'confirm' && 
-                validateInput((form && form.password === inputValue ),'Passwords is  not equal')                
+                validateInput((form && form.password === inputValue ), password.equal)                
         }
     }
     const validationForm = form => {
         console.log(form)
     }
-    return { validationInput, validationForm,  validate  }
+    return { validationInput, validationForm, validate  }
 }

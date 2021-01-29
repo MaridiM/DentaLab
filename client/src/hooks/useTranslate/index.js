@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next"
 
-export const useTranslate = (page = null, layers = [],  ) => {
-    const { t} = useTranslation(page)
-
+export const useTranslate = (type = null, layers = [],  ) => {
+    const { t} = useTranslation(type)
     const translation = {}
+    
     layers && layers.map(arg => {
         const typeArg = typeof(arg) === 'object'
         return translation[typeArg ? arg[0] : arg ] = t( typeArg ? arg[0] : arg, { 
@@ -12,6 +12,6 @@ export const useTranslate = (page = null, layers = [],  ) => {
     })
 
 
-    return { translation }
+    return { translation, type }
 
 }

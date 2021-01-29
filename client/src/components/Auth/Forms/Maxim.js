@@ -29,13 +29,6 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
         state: '',
     })
 
-    useEffect( () => {
-    //    Код  сдесь!
-
-    }, [setDisabled, validate, form])
-
-
-
     return (
         <form className='register-form'  method="POST">
             <h2 className='auth-modal-title'>{ title }</h2>
@@ -142,9 +135,9 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
             }
                 
 
-               { step === 1 && 
+                { step === 1 && 
                     <Button
-                        to='/vlad_2'
+                        to='/max_2'
                         className='link-next'
                         disabled={disabled}
                         >{ buttons.next }</Button>
@@ -152,4 +145,34 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
                 { step === 2 && 
                     <div className="btn-group">
                         <Button 
-                            to='/vlad_1' 
+                            to='/max_1' 
+                            className='btn-group__login'
+                            
+                            >{ buttons.cancel }</Button>
+                        <Button
+                            type='submit'
+                            onClick={onSubmit}
+                            >{ buttons.submit }</Button>
+                    </div>
+                }
+
+                
+                
+        </form> 
+    )
+}
+
+RegisterDentistForm.propTypes = {
+    step: PropTypes.number,
+    maxStep: PropTypes.number,
+    title: PropTypes.string,
+    useTranslate: PropTypes.func,
+}
+RegisterDentistForm.defaultProps = {
+    step: 1,
+    maxStep: 2,
+    title: '',
+    useTranslate: () => {},
+}
+
+export default RegisterDentistForm

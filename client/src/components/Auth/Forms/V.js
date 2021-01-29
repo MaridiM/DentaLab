@@ -8,7 +8,8 @@ import { useForm } from 'hooks'
 const { register: { dentist: { step_1, step_2 }}} = routes
 
 const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
-    const [ disabled, setDisabled ] = useState(true)
+    // const [ disabled, setDisabled ] = useState(null)
+
     const { translation: {
         dentist: { title, buttons, steps, experience },
         base: { inputs }
@@ -28,28 +29,18 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
         phone: '',
         state: '',
     })
-    useEffect( () => {
-        const emptyFields = form.fullname !== '' 
-            && form.email !== '' 
-            && form.phone !== '' 
-            && form.password !== '' 
-            && form.confirm !== ''
-        
-        if(emptyFields && validate) {
-            const password = validate.password && validate.password 
-            const confirm = validate.confirm && validate.confirm
-            const phone = validate.phone && validate.phone
-            const email = validate.email && validate.email
-            const disabledBool = (
-                (password ? !password.status : false) || 
-                (confirm ? !confirm.status : false) ||
-                (phone ? !phone.status : false) ||
-                (email ? !email.status : false) 
-            )
-            disabledBool === false && setDisabled(false)
-        }
 
-    }, [setDisabled, validate, form])
+    // validate, form
+
+    
+
+
+    // useEffect( () => {
+    // //    Код  сдесь!
+
+    // }, [setDisabled, validate, form])
+
+
 
     return (
         <form className='register-form'  method="POST">
@@ -157,7 +148,7 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
             }
                 
 
-                { step === 1 && 
+               { step === 1 && 
                     <Button
                         to={step_2}
                         className='link-next'
@@ -177,9 +168,6 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
                             >{ buttons.submit }</Button>
                     </div>
                 }
-
-                
-                
         </form> 
     )
 }

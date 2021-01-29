@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { Input, Button, Step, Select } from 'components'
@@ -8,7 +8,6 @@ import { useForm } from 'hooks'
 const { register: { dentist: { step_1, step_2 }}} = routes
 
 const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
-    const [ disabled, setDisabled ] = useState(null)
     const { translation: {
         dentist: { title, buttons, steps, experience },
         base: { inputs }
@@ -28,13 +27,25 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
         phone: '',
         state: '',
     })
-
-    useEffect( () => {
-    //    Код  сдесь!
-
-    }, [setDisabled, validate, form])
-
-
+    
+    let disabled = true
+    const emptyFields = form.fullname !== '' 
+        && form.email !== '' 
+        && form.phone !== '' 
+        && form.password !== '' 
+        && form.confirm !== ''
+    if(emptyFields && validate) {
+        const password = validate.password && validate.password 
+        const confirm = validate.confirm && validate.confirm
+        const phone = validate.phone && validate.phone
+        const email = validate.email && validate.email
+        disabled = (
+            (password ? !password.status : false) || 
+            (confirm ? !confirm.status : false) ||
+            (phone ? !phone.status : false) ||
+            (email ? !email.status : false) 
+        )
+    }
 
     return (
         <form className='register-form'  method="POST">
@@ -142,9 +153,9 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
             }
                 
 
-               { step === 1 && 
+                { step === 1 && 
                     <Button
-                        to='/vlad_2'
+                        to={step_2}
                         className='link-next'
                         disabled={disabled}
                         >{ buttons.next }</Button>
@@ -152,4 +163,34 @@ const RegisterDentistForm = ({step, maxStep, useTranslate}) => {
                 { step === 2 && 
                     <div className="btn-group">
                         <Button 
-                            to='/vlad_1' 
+                            to={step_1} 
+                            className='btn-group__login'
+                            
+                            >{ buttons.cancel }</Button>
+                        <Button
+                            type='submit'
+                            onClick={onSubmit}
+                            >{ buttons.submit }</Button>
+                    </div>
+                }
+              
+                
+        </form> 
+    )
+}
+
+RegisterDentistForm.propTypes = {
+    step: PropTypes.number,
+    maxStep: PropTypes.number,
+    title: PropTypes.string,
+    useTranslate: PropTypes.func,
+}
+RegisterDentistForm.defaultProps = {
+    step: 1,
+    maxStep: 2,
+    title: '',
+    useTranslate: () => {},
+}
+              
+                
+export default RegisterDentistForm

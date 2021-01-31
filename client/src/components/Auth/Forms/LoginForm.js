@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Input, Button, Select } from 'components'
+import { Input, Button, Select, Facebook} from 'components'
 import { routes } from 'routes'
-import { FacebookSVG, GoogleSVG } from 'icons'
+import { GoogleSVG } from 'icons'
 import { useForm } from 'hooks'
 
 const { password: {forgot}, register: {changeAccount} } = routes
@@ -56,10 +56,11 @@ const LoginForm = ({ useTranslate }) => {
             </div>
 
             <div className='login-form__social'>
-                <Button type='submit' className='btn-facebook'>
+                <Facebook>{ buttons.facebook }</Facebook>
+                {/* <Button className='btn-facebook' >
                     <FacebookSVG className='btn__img' />
                     { buttons.facebook }
-                </Button>
+                </Button> */}
                 <Button type='submit' className='btn-google'>
                     <GoogleSVG className='btn__img' />
                     { buttons.google }

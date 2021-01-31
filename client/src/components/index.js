@@ -5,6 +5,7 @@ export {
     Select,
     Img,
     InputSpinner,
+    Facebook
 }
 from './BaseComponents'
 

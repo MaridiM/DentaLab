@@ -37,7 +37,7 @@ if(process.env.NODE_ENV === 'production') {
 
 
 // Config server
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8000
 const HOST = process.env.HOST || 'localhost'
 
 app.listen(PORT, err => {

@@ -40,7 +40,7 @@
             ], 
             "buttons": { 
                 "submit": "Войти",
-                "facebook": "Продолжить с Faceboock",
+                "facebook": "Продолжить с Facebook",
                 "google": "Продолжить с Google"
             },
             "links": {

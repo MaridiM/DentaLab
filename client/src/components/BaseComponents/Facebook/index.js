@@ -1,35 +1,36 @@
-import React, { useState } from 'react'
+import React from 'react'
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
 
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { Button } from 'components'
 import { FacebookSVG } from 'icons'
+import { useFacebook } from 'hooks'
 
-const Facebook = ({ children }) => {
-    const [facebookLogin, setFacebookLogin] = useState({
-        isAuth: false,
-        userID: '',
-        name: '',
-        email: '',
-        phone: ''
-    })
-    const componentClicked = () => console.log('clicked')
-    const responseFacebook = response => {
-        console.log(response)
-    }
- 
+const Facebook = ({ children, icon, className }) => {
+    const { facebookLogin } = useFacebook()  
+    
     return (
-        <FacebookLogin
-            appId="462259068265305"
-            autoLoad={false}
-            fields="name,email,picture"
-            callback={responseFacebook} 
-            render={renderProps => (
-                <Button className='btn-facebook' onClick={renderProps.onClick}>
-                    <FacebookSVG className='btn__img' />
-                    { children }
-                </Button>
-            )} />
+        <Button 
+            className={classnames('btn-facebook', className)} 
+            onClick={facebookLogin}
+            >
+            { icon ? icon : <FacebookSVG className='btn__img' /> }
+            { children }
+        </Button>
     )
+}
+
+Facebook.propTypes = {
+    children: PropTypes.node,
+    icon: PropTypes.string, 
+    className: PropTypes.string
+}
+
+Facebook.defaultProps = {
+    children: 'Continue with Facebook',
+    icon: null,
+    className: ''
+
 }
 
 export default Facebook

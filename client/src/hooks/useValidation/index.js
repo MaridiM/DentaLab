@@ -7,8 +7,7 @@ export const useValidation = () => {
     const { translation: { empty, password, phone, email }} = useTranslate('errors', [
         ['empty', true], ['password', true], ['phone', true], ['email', true]
     ])
-    const { translation } = useTranslate('errors')
-
+    
 
     const REGEX_MAIL = /^[\w-'.]+@([\w-]+\.)+[\w-]{2,4}$/
     const REGEX_PHONE = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/

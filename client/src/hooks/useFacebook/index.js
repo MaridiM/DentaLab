@@ -2,49 +2,80 @@ import { useState } from 'react'
 import 'utils/facebookSDK'
 
 export const useFacebook = () => {
-    const [facebookData, setFacebookData] = useState({})
+    const [facebookResponse, setFacebookResponse] = useState({})
+    
+    // Process login and get user data from facebook
+    const login = () => {
+        window.FB.api('/me', { fields: 'name,email,picture' }, response => {
+            setFacebookResponse ({ 
+                ...window.FB.getAuthResponse(),
+                ...response
+            })
+            console.log({ 
+                ...window.FB.getAuthResponse(),
+                ...response
+            })
+        }) 
+    }
 
-    function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-        if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-            login();  
-            console.log(window.FB.getAuthResponse())
+    // Use response and call login method for auth by facebook
+    const statusChangeCallback = response => {  
+        if (response.status === 'connected') {   
+            login()  
         } else {                        
             if(response.status === 'unknown') {
-                window.FB.login(function(response) {
-                    console.log(response)
-                }, {scope: 'public_profile,name,email,picture'})    // Not logged into your webpage or we are unable to tell.
+                window.FB.login( response => {
+                    if (response.authResponse)  {
+                        login()
+                    } else {
+                        console.log('Facebook login failed')
+                    }
+                }) 
             }
         }
     }
 
+    // Action to  Login in  Facebook && authorization or login in app by facebook
+    const facebookLogin = () => {  
+        window.FB.getLoginStatus( response => {   
+            statusChangeCallback(response)
+            console.log(response.authResponse)
+        })
+    }
 
-    function checkLoginState() {               // Called when a person is finished with the Login Button.
-        window.FB.getLoginStatus(function(response) {   // See the onlogin handler
-            statusChangeCallback(response);
-        }, true);
+    // Action to logout from facebook & app
+    const facebookLogout = () => {  
+        window.FB.logout( response => { 
+            console.log(response)
+            setFacebookResponse ({})
+            
+        })
     }
 
 
+    // Initial FB by JS SDK
     window.fbAsyncInit = async () => {
         await window.FB.init({
-            appId      : '462259068265305',
+            appId      : '462259068265305',                     // App id from facebook
             cookie     : true,                                  // Enable cookies to allow the server to access the session.
             xfbml      : true,                                  // Parse social plugins on this webpage.
             version    : 'v9.0'                                 // Use this Graph API version for this call.
-        });
-        await window.FB.getLoginStatus(function(response) {     // Called after the JS SDK has been initialized.
-            statusChangeCallback(response)                      // Returns the login status.
-        });
-        console.log('Initial login by facebook')
+        })
+
+        await window.FB.getLoginStatus( response => {           // Called after the JS SDK has been initialized.
+            if(response.authResponse) {
+                statusChangeCallback(response)    
+            } else { 
+                return null
+            }
+        })
     }
     
-    function login() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-        console.log('Welcome!  Fetching your information.... ');
-        window.FB.api('/me', { fields: 'name,email,picture' }, function(response) {
-            console.log(response);
-        });
+   
+    
+    return { 
+        facebookLogin, 
+        facebookLogout, 
+        facebookResponse, 
     }
-      
-    return { checkLoginState }
-
 }

@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-import { Input, Button, Select, Facebook} from 'components'
+import { Input, Button, Select, Facebook } from 'components'
 import { routes } from 'routes'
-import { GoogleSVG, FacebookSVG } from 'icons'
-import { useForm, useFacebook } from 'hooks'
+import { GoogleSVG } from 'icons'
+import { useForm } from 'hooks'
 
 const { password: {forgot}, register: {changeAccount} } = routes
 
@@ -16,7 +16,6 @@ const LoginForm = ({ useTranslate }) => {
     }} = useTranslate('auth', [['login', true], ['base', true]])
 
     const { onChange, onSubmit, onBlur, validate } = useForm({})
-    // const { checkLoginState } = useFacebook()   
 
 
 
@@ -61,13 +60,7 @@ const LoginForm = ({ useTranslate }) => {
 
             <div className='login-form__social'>
                 <Facebook>{ buttons.facebook }</Facebook>
-                {/* <Button 
-                    className='btn-facebook' 
-                    onClick={checkLoginState}
-                    >
-                    <FacebookSVG className='btn__img' />
-                    { buttons.facebook }
-                </Button> */}
+               
                 <Button type='submit' className='btn-google'>
                     <GoogleSVG className='btn__img' />
                     { buttons.google }

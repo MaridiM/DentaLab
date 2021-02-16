@@ -54,8 +54,8 @@
             g.__buffer.opts = a;
         },
     });
-    for (var b = 0; b < d.length; b++) {
-        f = d[b];
+    for (var n = 0; n < d.length; n++) {
+        f = d[n];
         if (f in g) continue;
         var h = f.split("."),
             i = h.pop(),

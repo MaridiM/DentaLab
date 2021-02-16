@@ -20,8 +20,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(morgan('dev'))
 
-
-
 // Static on  production build
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client', 'build')))

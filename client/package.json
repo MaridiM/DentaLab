@@ -1,9 +1,9 @@
 {
     "name": "client",
+    "homepage": ".",
     "version": "0.1.0",
     "private": true,
     "proxy": "http://localhost:8000",
-    "homepage": ".",
     "dependencies": {
         "@babel/core": "7.12.3",
         "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",

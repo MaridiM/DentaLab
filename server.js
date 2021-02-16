@@ -1,14 +1,13 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import bodyParser from 'body-parser'
-import cookieParser from 'cookie-parser'
-import helmet from 'helmet'
-import cors from 'cors'
-import csurf from 'csurf'
-import morgan from 'morgan'
-import path from 'path'
+const express = require('express')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const helmet = require('helmet')
+const cors = require('cors')
+const csurf = require('csurf')
+const morgan = require('morgan')
+const path = require('path')
+require('dotenv').config()
 
-dotenv.config()
 
 const app = express()
 

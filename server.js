@@ -21,12 +21,6 @@ app.use(cookieParser())
 app.use(morgan('dev'))
 
 
-// Routes
-app.get('/', (req, res) => {
-    res.status(200).json({
-        all: 'working'
-    })
-})
 
 // Static on  production build
 if (process.env.NODE_ENV === 'production') {

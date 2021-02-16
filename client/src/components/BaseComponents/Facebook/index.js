@@ -30,7 +30,6 @@ Facebook.defaultProps = {
     children: 'Continue with Facebook',
     icon: null,
     className: ''
-
 }
 
 export default Facebook

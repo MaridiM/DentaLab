@@ -54,7 +54,7 @@
             g.__buffer.opts = a;
         },
     });
-    for (var n = 0; n < d.length; n++) {
+    for (var n= 0; n < d.length; n++) {
         f = d[n];
         if (f in g) continue;
         var h = f.split("."),
